@@ -1,0 +1,37 @@
+{{!< default}}
+
+<main class="site-main">
+
+    {{#foreach tags}}
+        <article class="{{post_class}}">
+            <div class="u-placeholder horizontal">
+                {{#if feature_image}}
+                    <img
+                        class="u-object-fit"
+                        srcset="{{> srcset}}"
+                        sizes="(min-width: 992px) calc((92vw - 60px) / 3), (min-width: 768px) calc((92vw - 30px) / 2), 92vw"
+                        src="{{img_url feature_image size="m"}}"
+                        alt="{{name}}"
+                    >
+                {{/if}}
+            </div>
+            <h3 class="post-title">{{name}}</h3>
+            <a class="u-permalink" href={{url}} aria-label="{{name}}"></a>
+        </article>
+    {{/foreach}}
+
+    {{#post}}
+        {{> "content" width="full"}}
+    {{/post}}
+
+    {{#is "post"}}
+        {{#if @custom.show_related_posts}}
+            {{> "related-posts"}}
+        {{/if}}
+
+        {{#post}}
+            {{> "comments"}}
+        {{/post}}
+    {{/is}}
+
+</main>
