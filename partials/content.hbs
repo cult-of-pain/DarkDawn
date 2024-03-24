@@ -18,7 +18,14 @@
             {{/is}}
             {{#is "post"}}
             <div class="single-meta">
-                {{tags separator=" | " prefix="Tagged in:"}}
+                <span class="single-meta-item single-meta-date">
+                    Tagged in
+                </span>
+                {{#foreach tags}}
+                    <span class="single-meta-item single-meta-tag">
+                        <a href="{{url}}" title="{{name}}" class="post-tag post-tag-{{slug}}">{{name}}</a>
+                    </span>
+                {{/foreach}}
             </div>
             {{/is}}
 
@@ -53,6 +60,8 @@
     {{/match}}
 
     <div class="single-content gh-content gh-canvas">
+        {{#is "page"}}
+        {{/is}}
         {{content}}
     </div>
 
