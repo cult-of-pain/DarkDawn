@@ -2,36 +2,44 @@
 
 <main class="site-main">
 
-    {{#foreach tags}}
-        <article class="{{post_class}}">
-            <div class="u-placeholder horizontal">
-                {{#if feature_image}}
-                    <img
-                        class="u-object-fit"
-                        srcset="{{> srcset}}"
-                        sizes="(min-width: 992px) calc((92vw - 60px) / 3), (min-width: 768px) calc((92vw - 30px) / 2), 92vw"
-                        src="{{img_url feature_image size="m"}}"
-                        alt="{{name}}"
-                    >
-                {{/if}}
-            </div>
-            <h3 class="post-title">{{name}}</h3>
-            <a class="u-permalink" href={{url}} aria-label="{{name}}"></a>
-        </article>
-    {{/foreach}}
+    <section class="tag">
+        <div class="gh-canvas">
+            <h1 class="tag-name">Cheat Sheet</h1>
+            <div class="tag-description">List of all tags for ease of searching</div>
+        </div>
+    </section>
 
-    {{#post}}
-        {{> "content" width="full"}}
-    {{/post}}
+    <div class="post-feed gh-feed gh-canvas">
 
-    {{#is "post"}}
-        {{#if @custom.show_related_posts}}
-            {{> "related-posts"}}
-        {{/if}}
+        {{#get 'tags' limit='all' include='count.posts' order='count.posts desc'}}
+    
+            {{#foreach tags}}
+                <article class="feed {{visibility}} {{slug}}">
 
-        {{#post}}
-            {{> "comments"}}
-        {{/post}}
-    {{/is}}
+                    <div class="feed-calendar">
+                        <div class="feed-calendar-month">
+                            {{name}}
+                        </div>
+                    </div>
+
+                    <h2 class="feed-title">{{description }}</h2>
+
+                    <div class="feed-right">
+                        {{> "icons/star"}}
+                        <div class="feed-length">
+                            {{ count.posts }} post(s)
+                        </div>
+                    </div>
+
+                    {{> "icons/chevron-right"}}
+
+                    <a class="u-permalink" href="{{url}}" aria-label="{{name}}"></a>
+
+                </article>
+            {{/foreach}}
+
+        {{/get}}
+
+    </div>
 
 </main>
